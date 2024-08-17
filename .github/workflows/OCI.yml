@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs: 
-  OCI-Deployment:
+  OCI-IaC-Deployment:
     runs-on: ubuntu-latest
     defaults:
       run:
