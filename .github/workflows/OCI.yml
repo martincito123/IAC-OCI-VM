@@ -30,12 +30,16 @@ jobs:
           chmod +x install.sh
           ./install.sh --accept-all-defaults
           echo "/home/runner/bin" >> $GITHUB_PATH
-          exec -l $SHELL
       
       - name: 'Fix OCI Config File Permissions'
         run: |
           oci setup repair-file-permissions --file /home/runner/.oci/config
           oci setup repair-file-permissions --file /home/runner/.oci/key.pem
+
+      - name: 'Install Terraform'
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7  # Specify desired Terraform version
 
       - name: Terraform Init
         id: init
