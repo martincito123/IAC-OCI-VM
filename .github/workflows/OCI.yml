@@ -15,14 +15,25 @@ jobs:
       
       - name: 'Write Config & Key Files'
         run: |
-          mkdir ~/.oci
-          echo "[DEFAULT]" >> ~/.oci/config
-          echo "user=${{secrets.OCI_USER_OCID}}" >> ~/.oci/config
-          echo "fingerprint=${{secrets.OCI_FINGERPRINT}}" >> ~/.oci/config
-          echo "region=${{secrets.OCI_REGION}}" >> ~/.oci/config
-          echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
-          echo "key_file=~/.oci/key.pem" >> ~/.oci/config
-          echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
+          mkdir -p ~/.oci
+          cat <<EOF > /home/runner/.oci/config
+          [DEFAULT]
+          user=${{secrets.OCI_USER_OCID}}
+          fingerprint=${{secrets.OCI_FINGERPRINT}}
+          region=${{secrets.OCI_REGION}}
+          tenancy=${{secrets.OCI_TENANCY_OCID}}
+          key_file=/home/runner/.oci/key.pem
+          EOF
+          echo "${{secrets.OCI_KEY_FILE}}" > /home/runner/.oci/key.pem
+          chmod 600 /home/runner/.oci/key.pem
+      
+      - name: 'Debug OCI Config and Key'
+        run: |
+          ls -l /home/runner/.oci/
+          cat /home/runner/.oci/config
+          stat /home/runner/.oci/key.pem
+          head -n 1 /home/runner/.oci/key.pem
+          grep -q "BEGIN.*PRIVATE KEY" /home/runner/.oci/key.pem && echo "Key file contains valid header" || echo "Key file is invalid"
       
       - name: 'Install OCI CLI'
         run: |
@@ -35,11 +46,15 @@ jobs:
         run: |
           oci setup repair-file-permissions --file /home/runner/.oci/config
           oci setup repair-file-permissions --file /home/runner/.oci/key.pem
+      
+      - name: 'Verify OCI CLI'
+        run: |
+          oci iam user get --user-id ${{secrets.OCI_USER_OCID}} --profile DEFAULT
 
       - name: 'Install Terraform'
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.5.7  # Specify desired Terraform version
+          terraform_version: 1.5.7
 
       - name: Terraform Init
         id: init
