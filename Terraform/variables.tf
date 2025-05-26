@@ -66,12 +66,12 @@ variable "ic_pub_vm_A" {
   default = {
     display_name : "IC_pub_vm-A"
     assign_public_ip : true
-    availability_domain : "RjRj:US-SAOPAULO-1-AD-1"
-    image_ocid : "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaapzxmgd24fv4izxh2ya7vctt5haesqpphspedxwjb65uuhcbowehq"
+    availability_domain : "Cxok:SA-SAOPAULO-1-AD-1"
+    image_ocid : "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaaf2zpk2mv3govhzviwwowwq3io2qqohozqsgq75rd4qxilef2ll2q"
     shape : {
-      name          = "VM.Standard2.1"
+      name          = "VM.Standard.A1.Flex"
       ocpus         = 1
-      memory_in_gbs = 1
+      memory_in_gbs = 6
     }
     ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3qjNb/fSTmjHXClwcI2oARKrB5jH7RePjYWVfXPi6rhvOLN5u7spg3RtuU7mJpF6yEFm/p26rYPrGQWCZaHnDtwbE+U5QxGZYibI02S5cCzvULdcFiuno3F5S8b56ir0LEPHAOaNAKjPIOjQpIFBbN1boEXDq9VF6hFCb/YSCs03tnnVwicIi/BnL/5zhIPKLT/LG3DjZLxgcomnichvdxpNaYphqJnBuCjfoS9yvFxdgvzC0JheUMsWa4xgviYC7D9LoQOx3mIVlLOoh0kzcGcbwjfXQrAb2RFv/etFPibvSB0cmaDxWkwlkaHM0ZrnnAgWuSWig+sh/jOTVCUCP rsa-key-20240817"]
   }
