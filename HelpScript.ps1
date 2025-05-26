@@ -1,5 +1,5 @@
 # Define the compartment ID
-$compartmentId = "ocid1.tenancy.oc1..aaaaaaaah5sadgcgkfkaub3ghdgt6w5nuonrndkdb2dcupyoh3j7cxvy4goa"
+$compartmentId = "ocid1.tenancy.oc1..aaaaaaaaghzw42sb2zfbc4kgvuv3vi64dyv2q5bdl5s3rmoqocyvqxz5heeq"
 
 # Get the list of shapes
 $shapeList = oci compute shape list --compartment-id $compartmentId --all | ConvertFrom-Json
